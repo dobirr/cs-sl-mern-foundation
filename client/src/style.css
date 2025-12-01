@@ -1,5 +1,9 @@
 :root {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family:
+    'Inter',
+    system-ui,
+    -apple-system,
+    sans-serif;
   line-height: 1.6;
   color: #0f172a;
   background: #f8fafc;
@@ -36,11 +40,10 @@ body {
   letter-spacing: -0.02em;
 }
 
-
 /**
 * Bootstrap Overrides **
 */
 .row {
-    --bs-gutter-x: .5rem;
-    --bs-gutter-y: 0;
+  --bs-gutter-x: 0.5rem;
+  --bs-gutter-y: 0;
 }

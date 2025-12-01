@@ -10,7 +10,6 @@ const routes = {
 };
 
 function render(pathname = window.location.pathname) {
-
   // Get the view and mount function for the current route
   const { view, mount } = routes[pathname] || routes['/'];
 
