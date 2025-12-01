@@ -1,17 +1,16 @@
 {
   "name": "cs-sl-mern-foundation",
+  "version": "0.1.0",
   "private": true,
-  "version": "0.0.0",
-  "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "install:all": "pnpm install --filter ./client --filter ./server",
+    "dev": "concurrently \"pnpm --filter ./client dev\" \"pnpm --filter ./server dev\"",
+    "dev:client": "pnpm --filter ./client dev",
+    "dev:server": "pnpm --filter ./server dev",
+    "build": "pnpm --filter ./client build && pnpm --filter ./server build",
+    "start": "pnpm --filter ./server start"
   },
   "devDependencies": {
-    "vite": "^7.2.4"
-  },
-  "dependencies": {
-    "bootstrap": "5.3.8"
+    "concurrently": "^8.2.2"
   }
 }
