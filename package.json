@@ -11,8 +11,8 @@
     "build": "pnpm --filter ./client build && pnpm --filter ./server build",
     "start": "pnpm --filter ./server start",
     "format": "prettier --write \"client/src/**/*.{js,css,html}\" $(if [ -d server/src ]; then echo \"server/src/**/*.{js,ts,css,html}\"; fi)",
-    "lint": "eslint \"client/src/**/*.js\" $(if [ -d server/src ]; then echo \"server/src/**/*.js server/src/**/*.ts\"; fi)",
-    "lint:fix": "lint: eslint \"client/src/**/*.js\" $(if [ -d server/src ]; then echo \"server/src/**/*.js server/src/**/*.ts\"; fi) --fix",
+    "lint": "eslint \"client/src/**/*.js\" $(if [ -d server/src ]; then echo \"server/src/**/*.js server/src/**/*.js\"; fi)",
+    "lint:fix": "lint: eslint \"client/src/**/*.js\" $(if [ -d server/src ]; then echo \"server/src/**/*.js server/src/**/*.js\"; fi) --fix",
     "format-and-lint": "pnpm format && pnpm lint"
   },
   "devDependencies": {
