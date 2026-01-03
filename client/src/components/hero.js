@@ -1,10 +1,4 @@
-export function renderHeroSection(
-  imageSrc,
-  title = 'Landing Page',
-  description,
-  supportLine,
-  cta
-) {
+export function renderHeroSection(imageSrc, title = 'Landing Page', description, supportLine, cta) {
   return `
     <section class="hero">
       <div class="hero-visual-floating">

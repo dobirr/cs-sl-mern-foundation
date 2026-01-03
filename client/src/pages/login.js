@@ -42,7 +42,6 @@ export function attachLoginHandlers() {
     };
 
     try {
-
       if (!payload.email || !payload.password) {
         throw new Error('Please enter email and password.');
       }
