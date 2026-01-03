@@ -1,5 +1,5 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './style.css';
+import 'bootstrap/scss/bootstrap.scss';
+import './style.scss';
 import { renderLoginPage, attachLoginHandlers } from './pages/login';
 import { renderRegisterPage, attachRegisterHandlers } from './pages/register.js';
 import { attachLandingHandlers, renderLandingPage } from './pages/landing.js';
