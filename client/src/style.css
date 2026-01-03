@@ -61,7 +61,33 @@ header nav svg {
   width: 1.5rem;
 }
 
-/* Toasts */
+/* search */
+.search {
+  border: 1px solid rgba(0,0,0, 0.2);
+  padding: 0.3rem 0.2rem 0.3rem 1.2rem;
+  border-radius: 1rem;
+}
+.search input {
+  border: none;
+  &:focus {
+    outline: none;
+    border-color: transparent;
+    box-shadow: none;
+  }
+}
+.search button {
+  all: unset;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.search .search-ico {
+  width: 1.25rem;
+}
+
+  /* Toasts */
 .toast-container {
   position: fixed;
   bottom: 16px;

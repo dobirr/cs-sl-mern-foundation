@@ -20,16 +20,24 @@ function render(pathname = window.location.pathname) {
   document.querySelector('#root').innerHTML = `
     <div class="app-shell">
       <header class="py-3 bg-white">
-        <div class="container-fluid d-flex justify-content-between align-items-center">
-          <span class="brand">
+        <div class="container-fluid d-flex align-items-center gap-5">
+          <span class="brand me-3">
             <a href="/" data-link class="text-decoration-none">HEALTHY Delights</a>
           </span>
-          <nav class="d-flex gap-4">            
-            <a class="login" href="/login" data-link class="text-decoration-none">
-              <i data-lucide="user"></i>
+          <div class="search flex-grow-1">
+            <form role="search">
+              <div class="input-group d-flex align-items-center">
+                <i class="search-ico" data-lucide="search"></i>
+                <input type="search" class="form-control" placeholder="Search meals or categories..." aria-label="Search" />               
+              </div>
+            </form>
+          </div>
+          <nav class="d-flex gap-4 ms-2">            
+            <a class="login" href="/login" data-link class="text-decoration-none d-flex align-items-center gap-1">
+              <i class="user-ico" data-lucide="user"></i>
             </a>
             <a class="cart" href="/cart" data-link class="text-decoration-none d-flex align-items-center gap-1">
-              <i data-lucide="store"></i>
+              <i class="user-store" data-lucide="store"></i>
             </a>
           </nav>
         </div>
