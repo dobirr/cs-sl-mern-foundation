@@ -1,4 +1,5 @@
 import { login } from '../services/auth.js';
+import { toast } from '../components/toast.js';
 
 export function renderLoginPage() {
   return `
@@ -8,7 +9,7 @@ export function renderLoginPage() {
           <div class="brand h5 mb-0">Login</div>
           <a href="/register" class="badge text-bg-light">Register</a>
         </div>
-        <p class="text-secondary small mb-3">Access your dashboard with the credentials you received.</p>
+        <p class="text-secondary small mb-3">Access your account with your credentials.</p>
         
         <form id="login-form">
         <div class="row">
@@ -21,7 +22,6 @@ export function renderLoginPage() {
         </div>
           <button type="submit" class="btn btn-primary w-100">Sign in</button>
         </form>
-        <div id="login-error" class="alert alert-danger py-2 mt-2 small d-none" role="alert"></div>
       </div>
     </div>
   `;
@@ -35,7 +35,6 @@ export function attachLoginHandlers() {
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
     const formData = new FormData(form);
-    const errorBox = document.getElementById('login-error');
 
     const payload = {
       email: formData.get('email'),
@@ -45,22 +44,19 @@ export function attachLoginHandlers() {
     try {
 
       if (!payload.email || !payload.password) {
-        throw new Error('Please enter your email address and password.');
+        throw new Error('Please enter email and password.');
       }
       if (payload.password.length < 6) {
-        throw new Error('Your password must be at least 6 characters long.');
+        throw new Error('Password must be at least 6 characters long.');
       }
 
       await login(payload);
-      if (errorBox) {
-        errorBox.classList.add('d-none');
-        errorBox.textContent = '';
-      }
+
+      toast.success('Login successful.');
     } catch (error) {
-      if (errorBox) {
-        errorBox.textContent = error.message || 'Login fehlgeschlagen.';
-        errorBox.classList.remove('d-none');
-      }
+      const message = error.message || 'Login failed.';
+
+      toast.error(message);
       console.error(error);
     }
   });
