@@ -55,7 +55,13 @@ export function attachRegisterHandlers() {
     };
 
     try {
-      if (!payload.firstName || !payload.lastName || !payload.email || !payload.password || !payload.passwordConfirm) {
+      if (
+        !payload.firstName ||
+        !payload.lastName ||
+        !payload.email ||
+        !payload.password ||
+        !payload.passwordConfirm
+      ) {
         throw new Error('Please complete all required fields.');
       }
       if (payload.password.length < 6) {
