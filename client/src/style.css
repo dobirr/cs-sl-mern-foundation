@@ -1,3 +1,5 @@
+/* Main */
+
 :root {
   font-family:
     'Inter',
@@ -40,6 +42,17 @@ body {
   letter-spacing: -0.02em;
 }
 
+.brand a {
+  color: #000;
+  letter-spacing: 0.01rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+
+/* Landing */
+
+
 /* Toasts */
 .toast-container {
   position: fixed;
@@ -54,7 +67,7 @@ body {
 }
 
 .app-toast {
-  font-size: .8rem;
+  font-size: 0.8rem;
   pointer-events: auto;
   padding: 10px 12px;
   color: #fff;
@@ -62,7 +75,9 @@ body {
   box-shadow: 0 18px 40px rgba(15, 23, 42, 0.15);
   opacity: 0;
   transform: translateY(8px);
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
 }
 
 .app-toast.visible {
@@ -86,10 +101,43 @@ body {
   background: #fd7e14;
 }
 
+/* Hero layout */
+.hero {
+  position: relative;
+  overflow: hidden;
+  margin: 0 0 2rem;
+  background: #e3f9f0;
+}
+
+.hero .row {
+  min-height: 60vh;
+}
+
+.hero-visual-floating {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 50vw;
+  pointer-events: none;
+}
+
+.hero-visual {
+  width: 100%;
+  min-height: 60vh;
+  height: 100%;
+  object-fit: cover;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+  display: block;
+}
+
 /**
 * Bootstrap Overrides **
 */
 .row {
   --bs-gutter-x: 0.5rem;
   --bs-gutter-y: 0;
+}
+
+.container-fluid {
+  max-width: 80%;
 }
