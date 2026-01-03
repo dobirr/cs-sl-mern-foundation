@@ -49,9 +49,17 @@ body {
   font-weight: 600;
 }
 
-
-/* Landing */
-
+/* Header */
+header nav a {
+  color: #000;
+  transition: color 0.4s ease;
+  &:hover {
+    color: #0bae76;
+  }
+}
+header nav svg {
+  width: 1.5rem;
+}
 
 /* Toasts */
 .toast-container {
