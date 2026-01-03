@@ -6,11 +6,14 @@ export function renderLandingPage() {
     <div class="landing page">
       ${renderHeroSection(
         hero,
+        'Fresh & Regional',
         'About Healthy Delights',
         'Healthy Delights connects nearby farmers with people who care about real food. Shop seasonal produce, baked goods, eggs, and more — delivered with the freshness you can taste.',
-        'Shop Fresh Produce · Meet Our Farmers',
         'Support local growers, skip the long supply chain, and enjoy food that’s truly regional.',
-        'Shop Fresh Produce · Meet Our Farmers'
+        [
+          { name: 'Shop Fresh Produce', link: '/shop', style: 'btn btn-primary' },
+          { name: 'Learn More', link: '/about', style: 'btn btn-secondary' },
+        ]
       )}
     </div>
   `;
