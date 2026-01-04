@@ -23,6 +23,8 @@ body {
 a {
   color: #000;
   transition: color 0.4s ease;
+  text-decoration: none;
+  cursor: pointer;
   &:hover {
     color: #0bae76;
     text-decoration: none;
@@ -54,6 +56,13 @@ header nav {
   a {
     color: #000;
     transition: color 0.4s ease;
+    &.logout {
+      span {
+        margin-left: 0.3rem;
+        font-weight: 600;
+        font-size: 0.9rem;
+      }
+    }
     &:hover {
       color: #0bae76;
     }

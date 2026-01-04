@@ -35,7 +35,6 @@ export function attachLoginHandlers() {
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
     const formData = new FormData(form);
-
     const payload = {
       email: formData.get('email'),
       password: formData.get('password'),
@@ -50,11 +49,10 @@ export function attachLoginHandlers() {
       }
 
       await login(payload);
-
       toast.success('Login successful.');
+      window.location.href = '/';
     } catch (error) {
       const message = error.message || 'Login failed.';
-
       toast.error(message);
       console.error(error);
     }

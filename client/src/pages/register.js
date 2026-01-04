@@ -1,4 +1,5 @@
 import { register } from '../services/auth.js';
+import { toast } from '../components/toast.js';
 
 export function renderRegisterPage() {
   return `
@@ -11,26 +12,25 @@ export function renderRegisterPage() {
         <p class="text-secondary small mb-3">Insert your credentials to create your account.</p>        
         <form id="register-form">
           <div class="row">
-            <div class="mb-2 col-md-6">
-              <input name="firstName" type="text" placeholder="First Name" class="form-control" />
-            </div>
-             <div class="mb-2 col-md-6">
-              <input name="lastName" type="text" placeholder="Last Name" class="form-control" required />
-            </div>
-            <div class="mb-2 col-md-12">
-              <input id="email" name="email" type="email" class="form-control" placeholder="Email" required />
-            </div>
-            <div class="mb-2 col-md-6">
-              <input id="password" name="password" type="password" class="form-control" placeholder="Password" required />
-            </div>
-            <div class="mb-3 col-md-6">
-              <input id="passwordConfirm" name="passwordConfirm" type="password" class="form-control" placeholder="Confirm Password" required />
-            </div>
-          </div>         
-         
-          <button type="submit" class="btn btn-primary w-100">Sign up</button>
+        <div class="mb-2 col-md-6">
+          <input name="firstName" type="text" placeholder="First Name" class="form-control" />
+        </div>
+         <div class="mb-2 col-md-6">
+          <input name="lastName" type="text" placeholder="Last Name" class="form-control" required />
+        </div>
+        <div class="mb-2 col-md-12">
+          <input id="email" name="email" type="email" class="form-control" placeholder="Email" required />
+        </div>
+        <div class="mb-2 col-md-6">
+          <input id="password" name="password" type="password" class="form-control" placeholder="Password" required />
+        </div>
+        <div class="mb-3 col-md-6">
+          <input id="passwordConfirm" name="passwordConfirm" type="password" class="form-control" placeholder="Confirm Password" required />
+        </div>
+        </div>         
+       
+        <button type="submit" class="btn btn-primary w-100">Sign up</button>
         </form>
-        <div id="register-error" class="alert alert-danger py-2 mt-2 small d-none" role="alert"></div>
       </div>
     </div>
   `;
@@ -44,7 +44,6 @@ export function attachRegisterHandlers() {
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
     const formData = new FormData(form);
-    const errorBox = document.getElementById('register-error');
 
     const payload = {
       firstName: formData.get('firstName'),
@@ -72,15 +71,10 @@ export function attachRegisterHandlers() {
       }
 
       await register(payload);
-      if (errorBox) {
-        errorBox.classList.add('d-none');
-        errorBox.textContent = '';
-      }
+      toast.success('Account created. You are signed in.');
+      window.location.href = '/';
     } catch (error) {
-      if (errorBox) {
-        errorBox.textContent = error.message || 'Registration failed.';
-        errorBox.classList.remove('d-none');
-      }
+      toast.error(error.message || 'Registration failed.');
       console.error(error);
     }
   });
