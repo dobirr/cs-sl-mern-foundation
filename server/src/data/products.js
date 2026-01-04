@@ -44,7 +44,13 @@ const baseTemplates = [
     tags: ['breakfast', 'high-protein'],
     diet: ['vegetarian'],
     allergens: ['dairy', 'oats', 'nuts'],
-    ingredients: ['grass-fed yogurt', 'fruit compote', 'maple syrup', 'rolled oats', 'pumpkin seeds'],
+    ingredients: [
+      'grass-fed yogurt',
+      'fruit compote',
+      'maple syrup',
+      'rolled oats',
+      'pumpkin seeds',
+    ],
     nutrition: { calories: 380, protein: 20, fats: 12, carbs: 48, fiber: 6, sugar: 18 },
     storage: 'Keep refrigerated; enjoy within 3 days.',
     packaging: 'Reusable glass jar',
@@ -279,7 +285,7 @@ function varyRating(base, idx) {
 function cloneProduct(template, farmerId, season, idx) {
   const id = `${template.slug}-${season}-${idx}`;
   const rating = varyRating(template.rating || 4.6, idx);
-  const ratingCount = 70 + (idx * 11) % 240;
+  const ratingCount = 70 + ((idx * 11) % 240);
   const price = varyPrice(template.price, idx);
   return {
     id,
