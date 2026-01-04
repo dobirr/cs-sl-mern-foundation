@@ -20,6 +20,14 @@ body {
   min-height: 100vh;
   background: #f8fafc;
 }
+a {
+  color: #000;
+  transition: color 0.4s ease;
+  &:hover {
+    color: #0bae76;
+    text-decoration: none;
+  }
+}
 
 .app-shell {
   min-height: 100vh;
@@ -163,7 +171,7 @@ header nav {
   h2 {
     font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
     font-weight: 500;
-    font-size: 2.6rem;
+    font-size: 2.7rem;
     line-height: 1.2;
     margin-bottom: 2rem;
   }
@@ -203,6 +211,14 @@ header nav {
   }
   .cta-group {
     margin-top: 2rem;
+  }
+}
+
+/* footer */
+footer {
+  font-size: 0.95rem;
+  a {
+    font-weight: 600;
   }
 }
 

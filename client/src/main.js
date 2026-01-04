@@ -43,6 +43,17 @@ function render(pathname = window.location.pathname) {
         </div>
       </header>
       ${html}
+      <footer>
+        <div class="container-fluid py-4 mt-5 border-top d-flex justify-content-between align-items-center">
+          <span>&copy; ${new Date().getFullYear()} HEALTHY Delights. All rights reserved.</span>
+          <div class="d-flex gap-5">
+            <a href="/privacy" data-link class="text-decoration-none">Privacy Policy</a>
+            <a href="/terms" data-link class="text-decoration-none">Terms of Service</a>
+            <a href="/contact" data-link class="text-decoration-none">Contact Us</a>
+          </div>
+        </div>                      
+      </div>
+    </footer>
     </div>
   `;
 
