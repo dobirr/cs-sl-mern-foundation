@@ -70,4 +70,3 @@ export const register = async ({ firstName, lastName, email, password }) => {
   persistUser(user);
   return user;
 };
-4;
