@@ -19,6 +19,7 @@ body {
   margin: 0;
   min-height: 100vh;
   background: #f8fafc;
+  color: rgba(30 ,30, 30, 1)
 }
 a {
   color: #000;
@@ -56,9 +57,12 @@ header nav {
   a {
     color: #000;
     transition: color 0.4s ease;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
     &.logout {
       span {
-        margin-left: 0.3rem;
+        margin-left: 0;
         font-weight: 600;
         font-size: 0.9rem;
       }
@@ -68,7 +72,24 @@ header nav {
     }
   }
   svg {
-    width: 1.5rem;
+    width: 1.2rem;
+    margin-right: 0.3rem;
+  }
+}
+
+/* hero */
+.intro {
+  h1 {
+    font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
+    font-weight: 500;
+    font-size: 1.8rem;
+    letter-spacing: 0.05rem;
+  }
+  .overline {
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    color: #6b7280;
   }
 }
 
@@ -159,6 +180,107 @@ header nav {
   background: #fd7e14;
 }
 
+/* farmer-hero */
+.farmer-hero {
+  margin: 2rem 0 3rem;
+  .farmer-infos {
+    padding: 2rem;
+    h1 {
+      font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
+      font-weight: 500;
+      font-size: 2.7rem;
+      line-height: 1.2;
+      margin-bottom: 2rem;
+    }
+  }
+}
+
+/* former-products */
+.former-products {
+  h2 {
+    font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
+    font-weight: 600;
+    font-size: 1.3rem;
+    line-height: 1.2;
+    margin-bottom: 2rem;
+  }
+}
+
+/* Product cards */
+.product-card {
+  border: 1px solid #e5e7eb;
+  height: 100%;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(15, 23, 42, 0.12);
+  }
+  .card-body {
+    display: flex;
+    flex-direction: column;
+  }
+  .product-farmer {
+    margin-bottom: 0.35rem;
+  }
+  .product-thumb img {
+    object-fit: cover;
+  }
+  .overline {
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    color: #6b7280;
+  }
+  .price {
+    font-weight: 700;
+  }
+  .rating {
+    font-weight: 600;
+  }
+  .product-controls {
+    a, button {
+      font-size: 0.85rem;
+    }
+  }
+  .product-title,
+  .product-subtitle {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .product-title {
+    -webkit-line-clamp: 2;
+    line-height: 1.25;
+    margin-bottom: 0.6rem;
+  }
+  .product-subtitle {
+    -webkit-line-clamp: 2;
+    line-height: 1.35;
+    margin-bottom: 0.85rem;
+  }
+  .product-meta {
+    margin-bottom: 0.75rem;
+  }
+  .product-tags {
+    margin-bottom: 0;
+  }
+  .product-controls {
+    margin-top: auto;
+  }
+  h5 {
+    font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
+    font-weight: 500;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .price {
+    font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
+    font-weight: 500;
+    color: rgba(30 ,30, 30, .9);
+    font-size: 1.2rem;
+  }
+}
+
 /* Hero */
 .hero {
   position: relative;
@@ -223,6 +345,8 @@ header nav {
   }
 }
 
+
+
 /* footer */
 footer {
   font-size: 0.95rem;
@@ -244,6 +368,9 @@ footer {
   --bs-gutter-x: 0.5rem;
   --bs-gutter-y: 0;
 }
+.product-grid {
+  --bs-gutter-y: 1.25rem;
+}
 
 .btn {
   border-radius: 0;
@@ -255,18 +382,27 @@ footer {
   font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
 }
 .btn-primary {
-  background: rgba(25, 135, 84, 1);
+  background: rgba(81, 154, 102, .85);
   color: rgba(255, 255, 255, 1);
   &:hover {
-    background: rgba(250, 207, 60, 1);
+    background: rgba(81, 154, 102, 1);
     color: rgba(255, 255, 255, 1);
   }
 }
 .btn-secondary {
-  background: rgba(250, 207, 60, 1);
+  background: rgba(255, 170, 0, .85);
   color: rgba(255, 255, 255, 1);
   &:hover {
-    background: rgba(25, 135, 84, 1);
+    background: rgba(255, 170, 0, 1);
     color: rgba(255, 255, 255, 1);
   }
+}
+.text-bg-light {
+    background-color: rgba(96, 123, 143, .6) !important;
+    color: rgba(255, 255, 255, 1) !important;
+}
+.badge {
+  border-radius: 0;
+  font-size: 0.7rem;
+  letter-spacing: 0.05rem;
 }
