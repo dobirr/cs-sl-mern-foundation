@@ -12,6 +12,7 @@ export function renderProductPage() {
           <h1 class="h3 mb-0">Fresh from local farmers</h1>
         </div>
       </div>
+      <div id="product-results-info" class="small text-muted mb-3"></div>
       <div id="product-list" class="row g-3 product-grid"></div>
     </section>
   `;
@@ -20,6 +21,7 @@ export function renderProductPage() {
 export function attachProductHandlers() {
   const { PREFIX, PRODUCTS, FARMERS } = API;
   const list = document.getElementById('product-list');
+  const resultsInfo = document.getElementById('product-results-info');
   if (!list) return;
 
   let productsCache = [];
@@ -28,6 +30,9 @@ export function attachProductHandlers() {
 
   async function loadProducts() {
     try {
+      const query = (new URLSearchParams(window.location.search).get('q') || '')
+        .trim()
+        .toLowerCase();
       const [productsRes, farmersRes] = await Promise.all([
         fetch(`${PREFIX}${PRODUCTS}`),
         fetch(`${PREFIX}${FARMERS}`),
@@ -44,12 +49,38 @@ export function attachProductHandlers() {
         farmerName: farmersById.get(product.farmerId)?.name || 'Local Farm',
       }));
 
-      if (!products?.length) {
+      if (!productsCache.length) {
         list.innerHTML = '<p class="text-muted">No products available right now.</p>';
         return;
       }
 
-      list.innerHTML = productsCache
+      const filtered = query
+        ? productsCache.filter((product) => {
+            const haystack = [
+              product.title,
+              product.subtitle,
+              product.category,
+              ...(product.tags || []),
+            ]
+              .filter(Boolean)
+              .join(' ')
+              .toLowerCase();
+            return haystack.includes(query);
+          })
+        : productsCache;
+
+      if (resultsInfo) {
+        resultsInfo.textContent = query
+          ? `${filtered.length} result(s) for "${query}"`
+          : `${productsCache.length} product(s) available`;
+      }
+
+      if (!filtered.length) {
+        list.innerHTML = '<p class="text-muted">No products match your search.</p>';
+        return;
+      }
+
+      list.innerHTML = filtered
         .map((p) => `<div class="col-sm-6 col-md-4 col-lg-3">${renderProductCard(p)}</div>`)
         .join('');
     } catch (err) {

@@ -17,6 +17,15 @@ const routes = {
   '/register': { view: renderRegisterPage, mount: attachRegisterHandlers },
 };
 
+function escapeHtml(value = '') {
+  return String(value)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+}
+
 function render(pathname = window.location.pathname) {
   let route = routes[pathname];
 
@@ -32,6 +41,8 @@ function render(pathname = window.location.pathname) {
     pathname.startsWith('/farmers/');
   const isCartRoute = pathname === '/cart' || pathname.startsWith('/cart/');
   const isAuthRoute = pathname === '/login' || pathname === '/register';
+  const activeSearchQuery =
+    pathname === '/products' ? new URLSearchParams(window.location.search).get('q') || '' : '';
 
   // Render the HTML
   const html = view(pathname);
@@ -47,7 +58,7 @@ function render(pathname = window.location.pathname) {
             <form role="search">
               <div class="input-group d-flex align-items-center">
                 <i class="search-ico" data-lucide="search"></i>
-                <input type="search" class="form-control" placeholder="Search meals or categories..." aria-label="Search" />               
+                <input type="search" class="form-control" name="q" value="${escapeHtml(activeSearchQuery)}" placeholder="Search products or categories..." aria-label="Search" />               
               </div>
             </form>
           </div>
@@ -113,6 +124,20 @@ document.addEventListener('click', (e) => {
   if (href.startsWith('http')) return; // external
   const url = new URL(href, window.location.origin);
   e.preventDefault();
+  window.history.pushState({}, '', `${url.pathname}${url.search}`);
+  render(url.pathname);
+});
+
+document.addEventListener('submit', (e) => {
+  const form = e.target.closest('form[role="search"]');
+  if (!form) return;
+  e.preventDefault();
+
+  const input = form.querySelector('input[name="q"]');
+  const query = input?.value?.trim() || '';
+  const target = query ? `/products?q=${encodeURIComponent(query)}` : '/products';
+
+  const url = new URL(target, window.location.origin);
   window.history.pushState({}, '', `${url.pathname}${url.search}`);
   render(url.pathname);
 });
