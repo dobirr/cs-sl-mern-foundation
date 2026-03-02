@@ -70,6 +70,9 @@ header nav {
     &:hover {
       color: #0bae76;
     }
+    &.is-active {
+      color: #0bae76;
+    }
   }
   svg {
     width: 1.2rem;
@@ -129,6 +132,9 @@ header nav {
     font-size: 1.15rem;
     font-weight: 600;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    &.is-active {
+      color: #0bae76;
+    }
   }
 }
 

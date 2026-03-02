@@ -24,6 +24,12 @@ function render(pathname = window.location.pathname) {
 
   // Get the view and mount function for the current route
   const { view, mount } = route || routes['/'];
+  const isProductsRoute =
+    pathname === '/products' ||
+    pathname.startsWith('/products/') ||
+    pathname.startsWith('/farmers/');
+  const isCartRoute = pathname === '/cart' || pathname.startsWith('/cart/');
+  const isAuthRoute = pathname === '/login' || pathname === '/register';
 
   // Render the HTML
   const html = view(pathname);
@@ -45,11 +51,11 @@ function render(pathname = window.location.pathname) {
           </div>
           <nav class="d-flex gap-4 ms-2">    
              
-            <a class="products text-decoration-none d-flex align-items-center gap-1" href="/products" data-link>
+            <a class="products text-decoration-none d-flex align-items-center gap-1 ${isProductsRoute ? 'is-active' : ''}" href="/products" data-link>
               <i data-lucide="shopping-bag"></i>
               <span>Products</span>
             </a>
-             <a class="cart" href="/cart" data-link class="text-decoration-none d-flex align-items-center gap-1">
+             <a class="cart text-decoration-none d-flex align-items-center gap-1 ${isCartRoute ? 'is-active' : ''}" href="/cart" data-link>
               <i class="user-store" data-lucide="store"></i>
               <span>Cart</span>
             </a>      
@@ -59,7 +65,7 @@ function render(pathname = window.location.pathname) {
                      <i class="user-ico" data-lucide="log-out"></i>
                      <span>${user?.name || user?.email || 'Logout'}</span>
                    </a>`
-                : `<a class="login text-decoration-none d-flex align-items-center gap-1" href="/login" data-link>
+                : `<a class="login text-decoration-none d-flex align-items-center gap-1 ${isAuthRoute ? 'is-active' : ''}" href="/login" data-link>
                      <i class="user-ico" data-lucide="user"></i>
                      <span>Login</span>
                    </a>`
