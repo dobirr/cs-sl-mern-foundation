@@ -25,6 +25,12 @@ server/   # Express API + seed script
 ```
 
 ## Getting Started
+Run all commands from the project root.
+
+### Prerequisites
+- Node.js (recommended: `>=18`)
+- pnpm
+
 From project root:
 
 1. Install dependencies for all workspaces
@@ -32,7 +38,14 @@ From project root:
 pnpm install -r
 ```
 
-2. Start client + server
+2. Seed demo data
+```bash
+pnpm seed
+```
+Note: Seeding writes `server/src/seed-output.json` for demo/export purposes.  
+The API itself reads from in-memory files in `server/src/data`, so the app can run without seeding.
+
+3. Start client + server
 ```bash
 pnpm dev
 ```
