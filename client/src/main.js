@@ -5,12 +5,14 @@ import { renderRegisterPage, attachRegisterHandlers } from './pages/register.js'
 import { attachLandingHandlers, renderLandingPage } from './pages/landing.js';
 import { renderProductPage, attachProductHandlers } from './pages/product.js';
 import { renderFarmerPage, attachFarmerHandlers } from './pages/farmer.js';
+import { renderCartPage, attachCartHandlers } from './pages/cart.js';
 import { createIcons, icons } from 'lucide';
 import { getUser, isAuthenticated, logout } from './services/auth.js';
 
 const routes = {
   '/': { view: renderLandingPage, mount: attachLandingHandlers },
   '/products': { view: renderProductPage, mount: attachProductHandlers },
+  '/cart': { view: renderCartPage, mount: attachCartHandlers },
   '/login': { view: renderLoginPage, mount: attachLoginHandlers },
   '/register': { view: renderRegisterPage, mount: attachRegisterHandlers },
 };
@@ -109,9 +111,10 @@ document.addEventListener('click', (e) => {
   if (!link) return;
   const href = link.getAttribute('href');
   if (href.startsWith('http')) return; // external
+  const url = new URL(href, window.location.origin);
   e.preventDefault();
-  window.history.pushState({}, '', href);
-  render(href);
+  window.history.pushState({}, '', `${url.pathname}${url.search}`);
+  render(url.pathname);
 });
 
 window.addEventListener('popstate', () => render(window.location.pathname));

@@ -3,36 +3,37 @@ import { toast } from '../components/toast.js';
 
 export function renderRegisterPage() {
   return `
-    <div class="app-container">
-      <div class="card card-login p-4 rounded-4">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-          <div class="brand h5 mb-0">Register</div>
-          <a href="/login" class="badge text-bg-light">Login</a>
+    <section class="register page">
+      <div class="app-container">
+        <div class="card card-login p-4 rounded-4">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="brand h5 mb-0">Register</div>
+            <a href="/login" class="badge text-bg-light">Login</a>
+          </div>
+          <p class="text-secondary small mb-3">Insert your credentials to create your account.</p>        
+          <form id="register-form">
+            <div class="row">
+          <div class="mb-2 col-md-6">
+            <input name="firstName" type="text" placeholder="First Name" class="form-control" />
+          </div>
+          <div class="mb-2 col-md-6">
+            <input name="lastName" type="text" placeholder="Last Name" class="form-control" required />
+          </div>
+          <div class="mb-2 col-md-12">
+            <input id="email" name="email" type="email" class="form-control" placeholder="Email" required />
+          </div>
+          <div class="mb-2 col-md-6">
+            <input id="password" name="password" type="password" class="form-control" placeholder="Password" required />
+          </div>
+          <div class="mb-3 col-md-6">
+            <input id="passwordConfirm" name="passwordConfirm" type="password" class="form-control" placeholder="Confirm Password" required />
+          </div>
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Sign up</button>
+          </form>
         </div>
-        <p class="text-secondary small mb-3">Insert your credentials to create your account.</p>        
-        <form id="register-form">
-          <div class="row">
-        <div class="mb-2 col-md-6">
-          <input name="firstName" type="text" placeholder="First Name" class="form-control" />
-        </div>
-         <div class="mb-2 col-md-6">
-          <input name="lastName" type="text" placeholder="Last Name" class="form-control" required />
-        </div>
-        <div class="mb-2 col-md-12">
-          <input id="email" name="email" type="email" class="form-control" placeholder="Email" required />
-        </div>
-        <div class="mb-2 col-md-6">
-          <input id="password" name="password" type="password" class="form-control" placeholder="Password" required />
-        </div>
-        <div class="mb-3 col-md-6">
-          <input id="passwordConfirm" name="passwordConfirm" type="password" class="form-control" placeholder="Confirm Password" required />
-        </div>
-        </div>         
-       
-        <button type="submit" class="btn btn-primary w-100">Sign up</button>
-        </form>
       </div>
-    </div>
+    </section>
   `;
 }
 
@@ -72,7 +73,10 @@ export function attachRegisterHandlers() {
 
       await register(payload);
       toast.success('Account created. You are signed in.');
-      window.location.href = '/';
+      const params = new URLSearchParams(window.location.search);
+      const redirectTo = params.get('redirect') || '/';
+      window.history.pushState({}, '', redirectTo);
+      window.dispatchEvent(new PopStateEvent('popstate'));
     } catch (error) {
       toast.error(error.message || 'Registration failed.');
       console.error(error);

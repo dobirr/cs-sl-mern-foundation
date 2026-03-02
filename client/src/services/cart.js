@@ -48,3 +48,37 @@ export function addToCart(product, quantity = 1) {
   saveCart(cart);
   return cart;
 }
+
+export function updateCartItemQuantity(productId, quantity) {
+  const safeQty = Math.max(0, Number(quantity) || 0);
+  const cart = loadCart();
+  const item = cart.find((entry) => entry.id === productId);
+  if (!item) return cart;
+
+  if (safeQty === 0) {
+    const filtered = cart.filter((entry) => entry.id !== productId);
+    saveCart(filtered);
+    return filtered;
+  }
+
+  item.quantity = safeQty;
+  saveCart(cart);
+  return cart;
+}
+
+export function removeFromCart(productId) {
+  const filtered = loadCart().filter((entry) => entry.id !== productId);
+  saveCart(filtered);
+  return filtered;
+}
+
+export function clearCart() {
+  saveCart([]);
+}
+
+export function getCartSubtotal() {
+  return loadCart().reduce(
+    (sum, item) => sum + Number(item.price || 0) * Number(item.quantity || 0),
+    0
+  );
+}
