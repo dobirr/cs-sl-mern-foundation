@@ -1,41 +1,97 @@
-# cs-sl-mern-foundation
+# Healthy Delights (MERN Foundation)
 
-## Running from the project root
-1) Install all workspaces (root + client + server):
+Healthy Delights is a frontend-first online farm marketplace built with a Vite vanilla client and a lightweight Express API.
+
+Current scope:
+- User registration and login (demo auth via localStorage)
+- Product listing from API
+- Product cards with ratings and farmer links
+- Farmer detail pages ("virtual farm")
+- Cart with quantity controls, totals, and mock checkout flow
+- Checkout access guard (login required before purchase)
+
+## Tech Stack
+- Client: Vite, Vanilla JavaScript, SCSS, Bootstrap
+- Server: Node.js + Express
+- Data: In-memory seed data (`server/src/data/*.js`)
+- Monorepo tooling: `pnpm` workspaces
+
+## Project Structure
+```text
+client/   # Vite frontend (vanilla JS, SCSS, Bootstrap)
+server/   # Express API + seed script
+```
+
+## Getting Started
+From project root:
+
+1. Install dependencies
 ```bash
 pnpm install -r
 ```
-2) Start both dev targets in parallel:
+
+2. Start client + server
 ```bash
 pnpm dev
 ```
-- Client (Vite, vanilla) on port 5173.
-- Server (Express) on port 4000, health at `/health`.
 
-### Key scripts (root `package.json`)
-- `pnpm dev` – run client and server dev tasks in parallel.
-- `pnpm dev:client` – only the client dev server.
-- `pnpm dev:server` – only the server.
-- `pnpm build` – build client then server.
-- `pnpm start` – start the built server (after `pnpm build`).
-- `pnpm run install:all` – install only the workspaces.
-- `pnpm format-and-lint` – run Prettier, then ESLint (skips server glob if `server/src` missing).
+Default ports:
+- Client: `http://localhost:5173`
+- Server: `http://localhost:4000`
 
-### Seeding products (server)
-- Seed data lives in `server/src/data/products.js` (20 healthy products with filters, images, nutrition, tags).
-- Write seed output: `pnpm --filter ./server seed` (generates `server/src/seed-output.json`).
-- API uses the same in-memory data; no DB required yet.
+## Root Scripts
+From project root:
 
-### API routes (server/src/index.js)
-- `GET /health` – basic status.
-- `GET /produkt` and `GET /product` – full product list + count.
-- `GET /product/:id` – single product by id.
+- `pnpm dev` – run client and server in parallel
+- `pnpm dev:client` – run only client
+- `pnpm dev:server` – run only server
+- `pnpm build` – build client (server is runtime JS)
+- `pnpm seed` – run server seed script
+- `pnpm format-and-lint` – format and lint current workspace code
 
-### Structure
-- `client/` – Vite frontend (vanilla placeholder, SPA-ready).
-- `server/` – Express API + seed script.
-- `pnpm-workspace.yaml` – defines the `client` and `server` workspaces.
+## API Endpoints
+Base URL (dev via Vite proxy): `/api`
 
-### Notes
-- ESLint is configured with browser globals; Prettier config is in `.prettierrc.json`.
-- Add DB wiring later; the seed script currently writes JSON only.
+- `GET /health`
+- `GET /api/product` (optional query: `farmerId`, `category`, `diet`, `tag`)
+- `GET /api/product/:id`
+- `GET /api/farmers`
+- `GET /api/farmers/:id`
+- `GET /api/farmers/:id/products`
+
+## Seed Data
+- Farmers: `server/src/data/farmers.js` (2 demo farms)
+- Products: `server/src/data/products.js` (20 farm-shop products)
+- Seed output: `server/src/seed-output.json`
+
+Run seeding:
+```bash
+pnpm seed
+```
+
+## Frontend Routes
+Client-side routes currently implemented:
+
+- `/` – landing
+- `/products` – product listing
+- `/farmers/:id` – farmer profile + farm products
+- `/cart` – cart + order summary + mock payment + order confirmation
+- `/login` – login
+- `/register` – register
+
+## Cart & Checkout Flow
+- Add to cart from product and farmer pages
+- Increase/decrease/remove items
+- Subtotal + shipping + tax + total
+- Mock payment step and order confirmation with generated order ID
+- Cart is cleared after successful mock payment
+
+### Checkout Auth Guard
+Users must be logged in to proceed with checkout:
+- If not logged in, user is redirected to `/login?redirect=/cart?step=payment`
+- After login/register, user is redirected back to cart payment step
+
+## Notes
+- Auth is currently demo/local (no JWT/session backend yet).
+- Payment is intentionally mocked for project completion scope.
+- Product filters exist on API level; UI filter controls can be expanded further.
