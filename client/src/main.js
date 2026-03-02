@@ -3,21 +3,30 @@ import './style.scss';
 import { renderLoginPage, attachLoginHandlers } from './pages/login';
 import { renderRegisterPage, attachRegisterHandlers } from './pages/register.js';
 import { attachLandingHandlers, renderLandingPage } from './pages/landing.js';
+import { renderProductPage, attachProductHandlers } from './pages/product.js';
+import { renderFarmerPage, attachFarmerHandlers } from './pages/farmer.js';
 import { createIcons, icons } from 'lucide';
 import { getUser, isAuthenticated, logout } from './services/auth.js';
 
 const routes = {
   '/': { view: renderLandingPage, mount: attachLandingHandlers },
+  '/products': { view: renderProductPage, mount: attachProductHandlers },
   '/login': { view: renderLoginPage, mount: attachLoginHandlers },
   '/register': { view: renderRegisterPage, mount: attachRegisterHandlers },
 };
 
 function render(pathname = window.location.pathname) {
+  let route = routes[pathname];
+
+  if (!route && pathname.startsWith('/farmers/')) {
+    route = { view: renderFarmerPage, mount: attachFarmerHandlers };
+  }
+
   // Get the view and mount function for the current route
-  const { view, mount } = routes[pathname] || routes['/'];
+  const { view, mount } = route || routes['/'];
 
   // Render the HTML
-  const html = view();
+  const html = view(pathname);
   const user = getUser();
   document.querySelector('#root').innerHTML = `
     <div class="app-shell">
@@ -35,9 +44,15 @@ function render(pathname = window.location.pathname) {
             </form>
           </div>
           <nav class="d-flex gap-4 ms-2">    
-            <a class="cart" href="/cart" data-link class="text-decoration-none d-flex align-items-center gap-1">
+             
+            <a class="products text-decoration-none d-flex align-items-center gap-1" href="/products" data-link>
+              <i data-lucide="shopping-bag"></i>
+              <span>Products</span>
+            </a>
+             <a class="cart" href="/cart" data-link class="text-decoration-none d-flex align-items-center gap-1">
               <i class="user-store" data-lucide="store"></i>
-            </a>        
+              <span>Cart</span>
+            </a>      
             ${
               isAuthenticated()
                 ? `<a id="logout-btn" class="logout text-decoration-none d-flex align-items-center gap-1">
@@ -69,7 +84,7 @@ function render(pathname = window.location.pathname) {
   `;
 
   if (typeof mount === 'function') {
-    mount();
+    mount(pathname);
   }
   createIcons({ icons });
 
@@ -81,5 +96,18 @@ function render(pathname = window.location.pathname) {
     });
   }
 }
+
+// SPA navigation
+document.addEventListener('click', (e) => {
+  const link = e.target.closest('a[data-link]');
+  if (!link) return;
+  const href = link.getAttribute('href');
+  if (href.startsWith('http')) return; // external
+  e.preventDefault();
+  window.history.pushState({}, '', href);
+  render(href);
+});
+
+window.addEventListener('popstate', () => render(window.location.pathname));
 
 render();
